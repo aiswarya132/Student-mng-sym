@@ -1,0 +1,607 @@
+/* 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+ margin: 0;
+ padding: 0;
+}
+html{
+    background-color: cadetblue;
+}
+body{
+    font-family: 'Roboto', sans-serif;
+    height: 1000px;
+    width: 400px;
+    background-color: white;
+    margin: 0 auto;
+ 
+}
+h3{
+    font-size: 18px;
+    color: tomato;
+    padding: 10px;
+    border-bottom:1px solid #afafaf;
+}
+table{
+    width: 100%;
+   
+    padding: 10px;
+    border-collapse: collapse;
+
+}
+
+table thead td{
+    padding: 5px;
+    background-color: lightslategray;
+    color: white;
+}
+table tbody td{
+    padding: 5px;
+}
+
+
+table tbody tr:nth-child(even){
+    background-color: rgb(213, 214, 216);
+}
+.edit,.delete,.addbtn{
+    text-decoration: none;
+    color: white;
+    background-color: blueviolet;
+   
+    padding: 2px 10px 2px 10px;
+       
+    text-align: center;
+    border-radius: 3px;
+}
+.delete{
+    background-color: red;
+}
+
+p{
+    text-align: right;
+    padding: 5px;
+}
+.addbtn{
+    background-color: darkslategrey
+
+}
+
+
+.form-group{
+    margin-top: 10px;
+    padding: 5px;
+}
+.form-group label,
+.form-group input{
+    display: block;
+}
+button{
+    color: white;
+    background-color: blueviolet;
+    padding: 2px 10px 2px 10px;
+    border-radius: 3px;
+    border: none;
+}
+
+.alert{
+    display: block;
+    padding: 5px;
+    background: forestgreen;
+    border-radius: 3px;
+    height: 30px;
+    color: white;
+}
+input{
+    font-size: 11px;
+}
+ */
+/* sample */
+ /* @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+} */
+
+/* Background */
+/* html{
+    min-height: 100vh;
+    background: linear-gradient(135deg, #5f9ea0, #2f4f4f);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
+
+/* Main Card */
+/* body{
+    width: 620px;
+    background: rgba(255,255,255,0.95);
+    border-radius: 14px;
+    box-shadow: 
+        0 20px 40px rgba(0,0,0,0.25),
+        inset 0 1px 0 rgba(255,255,255,0.6);
+    backdrop-filter: blur(8px);
+    overflow: hidden;
+     overflow-y: auto;
+    animation: fadeUp 0.8s ease;
+}
+
+@keyframes fadeUp{
+    from{
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Header */
+/* h3{
+    padding: 14px;
+    text-align: center;
+    color: white;
+    font-weight: 500;
+    background: linear-gradient(90deg, tomato, blueviolet);
+    letter-spacing: 1px;
+} */
+
+/* Table */
+/* table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table thead td{
+    padding: 10px;
+    font-size: 13px;
+    background: #2f4f4f;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+table tbody td{
+    padding: 9px;
+    font-size: 13px;
+    color: #333;
+}
+
+table tbody tr{
+    transition: 0.3s;
+}
+
+table tbody tr:nth-child(even){
+    background: #f4f7f8;
+}
+
+table tbody tr:hover{
+    background: #e0f2f1;
+    transform: scale(1.01);
+} */ 
+
+/* Action Buttons */
+/* .edit,
+.delete,
+.addbtn{
+    text-decoration: none;
+    color: white;
+    padding: 5px 14px;
+    font-size: 12px;
+    border-radius: 20px;
+    display: inline-block;
+    transition: 0.3s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.edit{
+    background: linear-gradient(135deg, #8a2be2, #6a1cb7);
+}
+
+.edit:hover{
+    transform: translateY(-2px);
+}
+
+.delete{
+    background: linear-gradient(135deg, crimson, darkred);
+}
+
+.delete:hover{
+    transform: translateY(-2px);
+}
+
+.addbtn{
+    background: linear-gradient(135deg, #2f4f4f, #1c3333);
+}
+
+.addbtn:hover{
+    transform: scale(1.05);
+} */
+
+/* Add Button Container */
+/* p{
+    padding: 12px;
+    text-align: right;
+}
+
+/* Form */
+/* .form-group{
+    padding: 10px;
+}
+
+.form-group label{
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 4px;
+    display: block;
+}
+
+.form-group input{
+    width: 100%;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 12px;
+    transition: 0.3s;
+}
+
+.form-group input:focus{
+    outline: none;
+    border-color: blueviolet;
+    box-shadow: 0 0 8px rgba(138,43,226,0.4);
+} */
+
+/* Submit Button */
+/* button{
+    margin: 10px;
+    padding: 8px 18px;
+    border: none;
+    border-radius: 20px;
+    background: linear-gradient(135deg, blueviolet, tomato);
+    color: white;
+    cursor: pointer;
+    font-size: 13px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+    transition: 0.3s;
+}
+
+button:hover{
+    transform: translateY(-2px);
+}  */
+
+/* Alert */
+/* .alert{
+    margin: 12px;
+    padding: 10px;
+    background: linear-gradient(135deg, forestgreen, seagreen);
+    color: white;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 13px;
+    animation: pop 0.4s ease;
+}
+
+@keyframes pop{
+    from{
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to{
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.table-container{
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+}
+
+ */
+
+/* ===== BODY ===== */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fad0c4, #ffdde1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #333;
+    animation: gradientBG 15s ease infinite;
+    background-size: 400% 400%;
+}
+
+@keyframes gradientBG {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
+
+/* ===== HEADER ===== */
+header {
+    width: 100%;
+    padding: 25px 0;
+    text-align: center;
+    background: rgba(255,255,255,0.25);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    color: #fff;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+}
+nav a {
+    margin: 0 20px;
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.3s;
+}
+nav a:hover {
+    color: #ffe600;
+    text-decoration: underline;
+}
+
+/* ===== TABLE CARD ===== */
+.table-container {
+    width: 95%;
+    max-width: 1100px;
+    margin: 25px auto;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 25px;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+    overflow-y: auto;
+    max-height: 450px;
+    padding: 25px;
+    transition: transform 0.3s;
+}
+.table-container:hover {
+    transform: scale(1.02);
+}
+
+/* ===== TABLE ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 12px 15px;
+    text-align: center;
+    font-weight: 500;
+}
+th {
+    background: linear-gradient(45deg, #ff6a00, #ee0979);
+    color: #fff;
+    position: sticky;
+    top: 0;
+    font-size: 1em;
+}
+tr:nth-child(even) {
+    background-color: #f1f1f1;
+}
+tr:hover {
+    background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+    color: #000;
+    transform: scale(1.02);
+    transition: 0.3s;
+}
+
+/* ===== BUTTONS ===== */
+button, .addbtn, .edit, .delete {
+    padding: 10px 20px;
+    border-radius: 15px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+.addbtn {
+    background: linear-gradient(45deg, #43e97b, #38f9d7);
+    color: #fff;
+}
+.addbtn:hover {
+    transform: scale(1.1);
+}
+.edit {
+    background: linear-gradient(45deg, #f7971e, #ffd200);
+    color: #fff;
+}
+.edit:hover {
+    transform: scale(1.1);
+}
+.delete {
+    background: linear-gradient(45deg, #ff416c, #ff4b2b);
+    color: #fff;
+}
+.delete:hover {
+    transform: scale(1.1);
+}
+
+/* ===== FORMS ===== */
+form {
+    width: 90%;
+    max-width: 500px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 25px;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+    margin: 25px auto;
+    transition: transform 0.3s;
+}
+form:hover {
+    transform: scale(1.02);
+}
+.form-group {
+    margin-bottom: 20px;
+}
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+input[type=text], input[type=number] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: 0.3s;
+}
+input[type=text]:focus, input[type=number]:focus {
+    border-color: #ff4b2b;
+    box-shadow: 0 0 10px #ff4b2b;
+}
+
+/* ===== ALERTS ===== */
+.alert {
+    padding: 12px 18px;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    text-align: center;
+    font-weight: 600;
+}
+.alert.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+.alert.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* ===== FOOTER ===== */
+footer {
+    width: 100%;
+    padding: 15px 0;
+    text-align: center;
+    color: #fff;
+    font-weight: 500;
+    margin-top: auto;
+    background: rgba(0,0,0,0.25);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+}
+/* Fake footer effect at bottom of page */
+body::after {
+    content: "";
+    display: block;
+    height: 35px; /* Footer height */
+    width: 100%;
+    background: rgba(0,0,0,0.2);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+}
+/* Remove underline from all links inside table and buttons */
+a.addbtn, a.edit, a.delete {
+    text-decoration: none; /* Remove underline */
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 12px;
+    color: #fff;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+/* Add hover effect */
+a.addbtn:hover {
+    transform: scale(1.05);
+}
+a.edit:hover {
+    transform: scale(1.05);
+}
+a.delete:hover {
+    transform: scale(1.05);
+}
+a.addbtn {
+    background: linear-gradient(45deg, #43e97b, #38f9d7);
+}
+a.edit {
+    background: linear-gradient(45deg, #f7971e, #ffd200);
+}
+a.delete {
+    background: linear-gradient(45deg, #ff416c, #ff4b2b);
+}
+/* Table header */
+th {
+    position: sticky;
+    top: 0; /* Stick at top */
+    background: linear-gradient(45deg, #ff416c, #ff4b2b); /* Colourful gradient */
+    color: #fff;
+    font-weight: 600;
+    font-size: 1em;
+    padding: 12px 15px;
+    z-index: 2; /* Make sure it's above rows */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* subtle shadow for 3D feel */
+}
+/* Table rows */
+tr:nth-child(even) {
+    background-color: #f1f1f1;
+}
+tr:hover {
+    background: linear-gradient(to right, #fbc2eb, #a6c1ee); /* soft hover */
+    color: #000;
+    transform: scale(1.02);
+    transition: 0.2s;
+}
+.table-container {
+    max-height: 400px; /* table scroll */
+    overflow-y: auto;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    background: rgba(255,255,255,0.95); /* table card */
+    padding: 20px;
+    margin-top: 20px;
+}
+/* Heading with gradient background, only heading */
+h2, h3 {
+    text-align: center;
+    padding: 15px 25px;
+    border-radius: 15px;
+    color: #fff;
+    background: linear-gradient(135deg, #ff6a00, #ee0979); /* colourful gradient */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    display: inline-block;
+    margin: 20px auto;
+    font-size: 2em;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.btn{
+  display: inline-block;
+  text-decoration: none;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 6px;
+  
+  font-weight: 600;
+}
+.btn:hover{
+  background-color: #388e3c;
+}
+
+
+
+
+
+
+
+
+
+
