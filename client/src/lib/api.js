@@ -1,4 +1,5 @@
-const BASE = '/api/students'
+// const BASE = '/api/students'
+const BASE = `${import.meta.env.VITE_API_URL}/api/students`
 
 async function parseBody(res) {
   if (res.status === 204) return null
