@@ -5,18 +5,22 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon app.js",
+    "server": "node app.js",
+    "client": "npm run dev --prefix client",
+    "dev": "concurrently -n api,web -c blue,magenta \"nodemon app.js\" \"npm run dev --prefix client\"",
+    "build": "npm run build --prefix client",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^2.2.2",
+    "cors": "^2.8.6",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
-    "express-handlebars": "^8.0.3",
     "mysql2": "^3.16.1"
   },
   "devDependencies": {
+    "concurrently": "^9.2.1",
     "nodemon": "^3.1.11"
   }
 }

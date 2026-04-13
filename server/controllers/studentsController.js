@@ -5,173 +5,93 @@ const con = mysql.createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
-    database: process.env.DB_NAME
+    database: process.env.DB_NAME,
 });
 
-exports.view = (req, res) => {
-
-    // // Check Database Connection
-    con.getConnection((err, connection) => {
-        if (err) throw err
-        connection.query("select* from users", (err, rows) => {
-            connection.release();
-            if (!err) {
-                console.log("Good");
-                res.render("home", { rows });
-            } else {
-                console.log("Error in Listening data" + err);
-
-            }
-        })
-    })
+function mapRow(row) {
+    if (!row) return null;
+    return {
+        id: row.ID ?? row.id,
+        name: row.NAME ?? row.name,
+        age: row.AGE ?? row.age,
+        city: row.CITY ?? row.city,
+    };
 }
 
-
-
-
-exports.adduser = (req, res) => {
-    res.render("adduser");
-}
-
-exports.save = (req, res) => {
-    con.getConnection((err, connection) => {
-        if (err) throw err;
-
-        const { name, age, city } = req.body;
-
-        connection.query(
-            "INSERT INTO users (NAME,AGE,CITY) values (?,?,?)",
-            [name, age, city],
-            (err, rows) => {
-                connection.release();
-                if (!err) {
-                    res.render("adduser", { msg: "User Details Added Success" });
-                } else {
-                    console.log("Error in Listening data" + err);
-                }
-            })
-    })
-}
-
-exports.edituser = (req, res) => {
-
-    con.getConnection((err, connection) => {
-        if (err) throw err
-
-        //Get ID from URL
-        let id=req.params.id;
-        connection.query("select* from users where id=?",[id], (err, rows) => {
-            connection.release();
-            if (!err) {
-                console.log("Good");
-                res.render("edituser", { user:rows[0] });
-            } else {
-                console.log("Error in Listening data" + err);
-
-            }
-        })
-    })
-
-}
-
-exports.edit = (req, res) => {
-    con.getConnection((err, connection) => {
-        if (err) throw err;
-
-        const { name, age, city } = req.body;
-         
-        let id=req.params.id;
-
-        connection.query
-            ("UPDATE users set NAME=?,AGE=?,CITY=? where ID=?",
-            [name, age, city,id],
-            (err, rows) => {
-                connection.release();
-                if (!err) {
-                    //res.redirect("/")
-                    res.render("edituser", { msg: "User Details Updated Success" });
-                } else {
-                    console.log("Error in Updating data" + err);
-                }
-            })
-    })
-}
-
-exports.delete=(req,res)=>{
-    con.getConnection((err,connection)=>{
-        if(err) throw err
-        //Get UD from URL
-        let id=req.params.id;
-        connection.query("delete from users where id=?", [id],
-            (err,rows)=>{
-                connection.release();
-                if(!err) {
-                    res.redirect("/");
-                }else{
-                    console.log(err);
-                    
-                }
-            }
-        )
-    })
-}
-
-// add search
-exports.view = (req, res) => {
+exports.apiList = (req, res) => {
     const search = req.query.search;
     let sql = "SELECT * FROM users";
-    let params = [];
+    const params = [];
 
-    if(search){
+    if (search) {
         sql += " WHERE NAME LIKE ? OR CITY LIKE ?";
         params.push(`%${search}%`, `%${search}%`);
     }
 
-    con.query(sql, params, (err, rows)=>{
-        if(err) throw err;
-        res.render("home", { rows, search });
+    con.query(sql, params, (err, rows) => {
+        if (err) return res.status(500).json({ error: "Failed to load students." });
+        res.json(rows.map(mapRow));
     });
-}
+};
 
+exports.apiGetById = (req, res) => {
+    const id = req.params.id;
+    con.query("SELECT * FROM users WHERE ID = ?", [id], (err, rows) => {
+        if (err) return res.status(500).json({ error: "Failed to load student." });
+        const user = rows[0];
+        if (!user) return res.status(404).json({ error: "Student not found." });
+        res.json(mapRow(user));
+    });
+};
 
+exports.apiCreate = (req, res) => {
+    const { name, age, city } = req.body || {};
+    if (!name || age === undefined || age === "" || !city) {
+        return res.status(400).json({ error: "Name, age, and city are required." });
+    }
 
-// pagination
-// exports.view = (req, res) => {
-//     const page = parseInt(req.query.page) || 1;
-//     const limit = 10;
-//     const offset = (page - 1) * limit;
+    con.query(
+        "INSERT INTO users (NAME, AGE, CITY) VALUES (?, ?, ?)",
+        [name, age, city],
+        (err, result) => {
+            if (err) return res.status(500).json({ error: "Could not create student." });
+            res.status(201).json({
+                id: result.insertId,
+                name,
+                age: Number(age),
+                city,
+            });
+        }
+    );
+};
 
-//     const search = req.query.search;
-//     let sqlCount = "SELECT COUNT(*) as count FROM users";
-//     let sqlData = "SELECT * FROM users";
-//     let params = [];
+exports.apiUpdate = (req, res) => {
+    const id = req.params.id;
+    const { name, age, city } = req.body || {};
+    if (!name || age === undefined || age === "" || !city) {
+        return res.status(400).json({ error: "Name, age, and city are required." });
+    }
 
-//     if(search){
-//         sqlCount += " WHERE NAME LIKE ? OR CITY LIKE ?";
-//         sqlData += " WHERE NAME LIKE ? OR CITY LIKE ?";
-//         params.push(`%${search}%`, `%${search}%`);
-//     }
+    con.query(
+        "UPDATE users SET NAME = ?, AGE = ?, CITY = ? WHERE ID = ?",
+        [name, age, city, id],
+        (err, result) => {
+            if (err) return res.status(500).json({ error: "Could not update student." });
+            if (result.affectedRows === 0) {
+                return res.status(404).json({ error: "Student not found." });
+            }
+            res.json({ id: Number(id), name, age: Number(age), city });
+        }
+    );
+};
 
-//     sqlData += " LIMIT ? OFFSET ?";
-//     params.push(limit, offset);
-
-//     // Get total count
-//     con.query(sqlCount, search ? [`%${search}%`,`%${search}%`] : [], (err, countResult)=>{
-//         if(err) throw err;
-//         const totalRows = countResult[0].count;
-//         const totalPages = Math.ceil(totalRows/limit);
-
-//         // Get data
-//         con.query(sqlData, params, (err, rows)=>{
-//             if(err) throw err;
-//             res.render("home", { 
-//                 rows, 
-//                 currentPage: page, 
-//                 totalPages,
-//                 search
-//             });
-//         });
-//     });
-// }
-
-
+exports.apiDelete = (req, res) => {
+    const id = req.params.id;
+    con.query("DELETE FROM users WHERE ID = ?", [id], (err, result) => {
+        if (err) return res.status(500).json({ error: "Could not delete student." });
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ error: "Student not found." });
+        }
+        res.status(204).send();
+    });
+};

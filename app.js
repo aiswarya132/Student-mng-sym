@@ -1,49 +1,35 @@
-const  express = require("express");
+const fs = require("fs");
+const path = require("path");
+const express = require("express");
+const cors = require("cors");
 
-const exphbs = require("express-handlebars");
-const bodyParser = require("body-parser");
-const mysql = require("mysql2");
-
-require('dotenv').config();
+require("dotenv").config();
 
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.use(bodyParser.urlencoded({extended:false}));
-app.use(bodyParser.json());
+const clientOrigin = process.env.CLIENT_ORIGIN || "http://localhost:5173";
+app.use(
+    cors({
+        origin: clientOrigin,
+        credentials: true,
+    })
+);
 
-// static files
-app.use(express.static("public"));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Template Engine
-const handlebars = exphbs.create( {extname:".hbs"});
-app.engine('hbs', handlebars.engine);
-app.set("view engine" , "hbs");
+app.use("/api/students", require("./server/routes/students"));
 
-//MySQL
-// const con= mysql.createPool( {
-//     connectionLimit:10,
-//     host : process.env.DB_HOST,
-//     user : process.env.DB_USER,
-//     password : process.env.DB_PASS,
-//     database : process.env.DB_NAME
-// });
+const clientDist = path.join(__dirname, "client", "dist");
+const clientIndex = path.join(clientDist, "index.html");
+if (fs.existsSync(clientIndex)) {
+    app.use(express.static(clientDist));
+    app.get(/^\/(?!api).*/, (req, res) => {
+        res.sendFile(clientIndex);
+    });
+}
 
-// // Check Database Connection
-// con.getConnection((err,connection) => {
-//     if (err) throw err
-//     console.log("Connection Success");
-    
-// })
-// Router
-// app.get('/', (req,res) =>{
-//     res.render("home")
-// });
-const routes=require("./server/routes/students");
-app.use('/' , routes)
-
-// Listen Port
-app.listen(port,() => {
-    console.log("Listening Port : " + port);
-    
+app.listen(port, () => {
+    console.log("Listening on port " + port);
 });
